@@ -6,6 +6,7 @@ import ProductAll from './page/ProductAll'
 import ProductDetail from './page/ProductDetail'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import PrivateRoute from './route/PrivateRoute'
 
 //1. 전체 상품 페이지, 로그인, 상품상세
 //2. 전체 상품 : 전체 상품을 볼 수 있다
@@ -17,14 +18,14 @@ import './App.css'
 //7. 상품 검색 기능
 
 function App() {
-
+  const [authenticate, setAuthenticate] = useState(false)   //true = 로그인, false = 로그아웃
   return (
     <div>
       <Navbar />
       <Routes>
         <Route path="/" element={<ProductAll />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
+        <Route path="/product/:id" element={<PrivateRoute authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
       </Routes>
     </div>
   )

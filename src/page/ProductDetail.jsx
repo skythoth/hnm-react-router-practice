@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import { faStar, faChevronDown, faDownload } from '@fortawesome/free-solid-svg-icons'
 
 const ProductDetail = () => {
+    let {id} = useParams()
+    const [product, setProduct] = useState(null)
+    const getProductDetail = async () => {
+        let url = `https://my-json-server.typicode.com/skythoth/hnm-react-router-practice/products/${id}`
+        let response = await fetch(url)
+        let data = await response.json()
+        console.log(data)
+        setProduct(data)
+    }
+    useEffect(() => {
+        getProductDetail()
+    },[])
     return (
         <Container className="detail-container">
             <Row>
@@ -13,8 +26,8 @@ const ProductDetail = () => {
                     <div className="detail-image-wrapper">
                         <img
                             className="detail-image"
-                            src="https://img.29cm.co.kr/item/202602/11f11089fe3cfe2aa540ef3353cd1ea5.jpg?width=700&format=webp"
-                            alt="슬림핏 프로 티셔츠"
+                            src={product?.img}
+                            alt={product?.title}
                         />
                     </div>
                 </Col>
@@ -25,12 +38,12 @@ const ProductDetail = () => {
                     <div className="detail-header d-flex justify-content-between align-items-start">
                         <div>
                             <a href="#" className="detail-brand">
-                                콘치웨어
+                                {product?.brand}
                                 <svg viewBox="0 0 24 24" width="10" height="10" xmlns="http://www.w3.org/2000/svg" fill="none">
                                     <path fill="currentColor" fillRule="evenodd" d="m17.414 12-8.707 8.707-1.414-1.414L14.586 12 7.293 4.707l1.414-1.414z" clipRule="evenodd"></path>
                                 </svg>
                             </a>
-                            <h2 className="detail-title">슬림핏 프로 티셔츠 (9colors)</h2>
+                            <h2 className="detail-title">{product?.title}</h2>
                         </div>
                         <button className="detail-wishlist-btn">
                             <FontAwesomeIcon icon={faHeart} size="lg" />
@@ -41,8 +54,8 @@ const ProductDetail = () => {
                     <div className="detail-price-section d-flex align-items-end justify-content-between">
                         <div>
                             <div className="d-flex align-items-center gap-2">
-                                <strong className="detail-discount-rate">42%</strong>
-                                <strong className="detail-current-price">24,050<span>원</span></strong>
+                                {product?.priceNote && <strong className="detail-discount-rate">{product.priceNote}</strong>}
+                                <strong className="detail-current-price">{product?.price.toLocaleString()}<span>원</span></strong>
                             </div>
                         </div>
                         <button className="btn btn-dark btn-sm detail-coupon-download-btn d-flex align-items-center gap-1">
@@ -75,9 +88,9 @@ const ProductDetail = () => {
                     <div className="detail-option-selector">
                         <select className="btn w-100 detail-option-btn">
                             <option>사이즈</option>
-                            <option>S</option>
-                            <option>M</option>
-                            <option>L</option>
+                            {product?.size.map((item, index) => (
+                                <option key={index}>{item}</option>
+                            ))}
                         </select>
                     </div>
 

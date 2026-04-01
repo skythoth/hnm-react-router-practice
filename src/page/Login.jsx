@@ -1,7 +1,18 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setAuthenticate}) => {
+    const navigate = useNavigate();
+    const loginUser = (event) => {
+        event.preventDefault();     //submit시 리프레시 방지
+        setAuthenticate(true);
+        
+        console.log("login success");
+        navigate("/");
+    }
     return (
         <Container>
             <div className="login-page d-flex flex-column align-items-center">
@@ -38,24 +49,47 @@ const Login = () => {
                     <div className="login-desc">29CM, 무신사, 솔드아웃을 하나의 계정으로 사용하세요</div>
                 </div>
 
-                {/* Main Buttons */}
-                <div className="d-flex flex-column align-items-center w-100 login-btn-group">
-                    <button className="btn btn-dark w-100 fw-bold login-btn-main">
-                        무신사 통합계정 가입 및 로그인
-                    </button>
-                    <button className="btn w-100 fw-bold d-flex align-items-center justify-content-center gap-2 login-btn-kakao">
-                        <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none">
-                            <path fill="currentColor" fillRule="evenodd" d="M12 3.6c-5.302 0-9.6 3.335-9.6 7.449 0 2.558 1.662 4.814 4.194 6.155l-1.066 3.908c-.094.345.3.62.601.42l4.67-3.095q.59.06 1.201.06c5.302 0 9.6-3.334 9.6-7.448S17.302 3.6 12 3.6" clipRule="evenodd"></path>
-                        </svg>
-                        카카오로 계속하기
-                    </button>
-                    <button className="btn w-100 fw-bold d-flex align-items-center justify-content-center gap-2 login-btn-apple">
-                        <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none">
-                            <path fill="currentColor" d="M15.562 5.045c-.742.797-1.928 1.427-3.115 1.337-.148-1.079.433-2.225 1.112-2.933.742-.82 2.04-1.404 3.09-1.449.124 1.124-.358 2.225-1.087 3.045m1.075 1.55c-1.718-.09-3.189.888-4.005.888-.828 0-2.076-.843-3.436-.82-1.767.022-3.411.932-4.313 2.382-1.854 2.898-.482 7.19 1.31 9.55.877 1.168 1.928 2.449 3.312 2.404 1.31-.045 1.83-.775 3.412-.775 1.594 0 2.051.775 3.436.752 1.433-.022 2.336-1.168 3.213-2.337 1.001-1.325 1.41-2.617 1.434-2.685-.025-.022-2.769-.977-2.793-3.854-.025-2.404 2.163-3.55 2.261-3.617-1.235-1.663-3.164-1.843-3.831-1.888"></path>
-                        </svg>
-                        Apple로 계속하기
-                    </button>
-                </div>
+                {/* Bootstrap Form */}
+                <Form className="login-form" onSubmit={(event) => loginUser(event)}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Text className="text-muted">
+                        We'll never share your email with anyone else.
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <Form.Check type="checkbox" label="Check me out" />
+                    </Form.Group>
+
+                    {/* Main Buttons */}
+                    <div className="d-flex flex-column align-items-center w-100 login-btn-group">
+                        <Button variant="dark" type="submit" className="btn btn-dark w-100 fw-bold login-btn-main">
+                            아이디로 로그인
+                        </Button>
+                        {/* <button className="btn btn-dark w-100 fw-bold login-btn-main">
+                            무신사 통합계정 가입 및 로그인
+                        </button> */}
+                        <button type="submit" className="btn w-100 fw-bold d-flex align-items-center justify-content-center gap-2 login-btn-kakao">
+                            <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <path fill="currentColor" fillRule="evenodd" d="M12 3.6c-5.302 0-9.6 3.335-9.6 7.449 0 2.558 1.662 4.814 4.194 6.155l-1.066 3.908c-.094.345.3.62.601.42l4.67-3.095q.59.06 1.201.06c5.302 0 9.6-3.334 9.6-7.448S17.302 3.6 12 3.6" clipRule="evenodd"></path>
+                            </svg>
+                            카카오로 계속하기
+                        </button>
+                        <button type="submit" className="btn w-100 fw-bold d-flex align-items-center justify-content-center gap-2 login-btn-apple">
+                            <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <path fill="currentColor" d="M15.562 5.045c-.742.797-1.928 1.427-3.115 1.337-.148-1.079.433-2.225 1.112-2.933.742-.82 2.04-1.404 3.09-1.449.124 1.124-.358 2.225-1.087 3.045m1.075 1.55c-1.718-.09-3.189.888-4.005.888-.828 0-2.076-.843-3.436-.82-1.767.022-3.411.932-4.313 2.382-1.854 2.898-.482 7.19 1.31 9.55.877 1.168 1.928 2.449 3.312 2.404 1.31-.045 1.83-.775 3.412-.775 1.594 0 2.051.775 3.436.752 1.433-.022 2.336-1.168 3.213-2.337 1.001-1.325 1.41-2.617 1.434-2.685-.025-.022-2.769-.977-2.793-3.854-.025-2.404 2.163-3.55 2.261-3.617-1.235-1.663-3.164-1.843-3.831-1.888"></path>
+                            </svg>
+                            Apple로 계속하기
+                        </button>
+                    </div>
+                </Form>
+
 
                 {/* Find ID / Password */}
                 <div className="d-flex align-items-center justify-content-center gap-2 login-find-section">

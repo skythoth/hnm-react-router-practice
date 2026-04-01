@@ -1,10 +1,15 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import { useNavigate } from 'react-router-dom'
 
 const ProductCard = ({ item }) => {
+    const navigate = useNavigate();
+    const showProductDetail = () => {
+        navigate(`/product/${item.id}`)
+    }
     return (
-        <div className="product-card" role="button">
+        <div className="product-card" role="button" onClick={showProductDetail}>
             <div className="card-image-wrapper">
                 {item.rank != null && (
                     <div className="card-rank-badge">{item.rank}</div>
