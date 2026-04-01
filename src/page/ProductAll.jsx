@@ -20,7 +20,7 @@ const ProductAll = () => {
         <Container>
             <Row>
                 {productList.map((menu) => (
-                    <Col sm={12} lg={3}><ProductCard item={menu} /></Col>
+                    <Col xs={12} sm={6} md={4} lg={3}><ProductCard item={menu} /></Col>
                 ))}
             </Row>
         </Container>
