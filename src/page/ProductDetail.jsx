@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
-import { faStar, faChevronDown, faDownload } from '@fortawesome/free-solid-svg-icons'
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 
 const ProductDetail = () => {
     let {id} = useParams()
     const [product, setProduct] = useState(null)
     const getProductDetail = async () => {
         let url = `https://my-json-server.typicode.com/skythoth/hnm-react-router-practice/products/${id}`
+        //let url = `http://localhost:4000/products/${id}`
         let response = await fetch(url)
         let data = await response.json()
         console.log(data)

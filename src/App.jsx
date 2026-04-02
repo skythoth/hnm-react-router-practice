@@ -21,7 +21,7 @@ function App() {
   const [authenticate, setAuthenticate] = useState(false)   //true = 로그인, false = 로그아웃
   return (
     <div>
-      <Navbar />
+      <Navbar authenticate={authenticate} setAuthenticate={setAuthenticate} />
       <Routes>
         <Route path="/" element={<ProductAll />} />
         <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />

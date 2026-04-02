@@ -35,11 +35,34 @@
   min-height: 16px;
   width: 60px;
   min-width: 60px;
+  cursor: pointer;
 }
 
 /* Mobile icon list */
+.mobile-nav-btn{
+  color:#000;
+  cursor:pointer;
+}
+
 .navbar-mobile-icons {
-  gap: 16px;
+  gap: 10px;
+}
+
+.mobile-nav {
+  --bs-offcanvas-width:250px;
+}
+
+.navbar-mobile-icons .search-area {
+}
+
+.navbar-mobile-icons .search-area .icon-nav-item {
+  top:0
+}
+
+.navbar-mobile-icons .search-area input {
+  font-size:14px;
+  width:140px;
+  padding-left:28px
 }
 
 /* Desktop nav */
