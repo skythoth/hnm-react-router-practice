@@ -30,7 +30,7 @@ function App() {
         <Route path="/product/:id" element={<PrivateRoute authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
       </Routes>
 
-      <ToastContainer className='mt-3' position='top-center' show={toastMessage !== ''} onClose={() => setToastMessage('')}>
+      <ToastContainer className='mt-3' position='top-center'>
         <Toast show={toastMessage !== ''} onClose={() => setToastMessage('')} delay={2000} autohide>
           <Toast.Body>{toastMessage}</Toast.Body>
         </Toast>
