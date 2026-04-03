@@ -33,7 +33,7 @@ const subNavLinks = [
     { label: 'Lookbook'},
 ]
 
-const Navbar = ({authenticate, setAuthenticate}) => {
+const Navbar = ({authenticate, setAuthenticate, setToastMessage}) => {
     const navigate = useNavigate();
     const search = (event) => {
         if (event.key === 'Enter') {
@@ -42,6 +42,14 @@ const Navbar = ({authenticate, setAuthenticate}) => {
         }
     }
     const [show, setShow] = useState(false)
+
+    const logoutUser = (event) => {
+        event.preventDefault();     //submit시 리프레시 방지
+        setToastMessage("로그아웃 되었습니다.");
+        setAuthenticate(false);
+
+        navigate("/");
+    }
 
     return (
         <div className="navbar-wrapper sticky-top">
@@ -58,7 +66,7 @@ const Navbar = ({authenticate, setAuthenticate}) => {
                     <nav className="d-lg-none">
                         <ul className="navbar-mobile-icons d-flex list-unstyled mb-0">
                             {authenticate ? 
-                                <li><a className="icon-nav-item" onClick={() => {setAuthenticate(false); navigate('/')}} aria-label="로그아웃"><FontAwesomeIcon icon={faDoorClosed} /></a></li>
+                                <li><a className="icon-nav-item" onClick={logoutUser} aria-label="로그아웃"><FontAwesomeIcon icon={faDoorClosed} /></a></li>
                                 : 
                                 <li><a className="icon-nav-item" onClick={() => navigate('/login')} aria-label="로그인"><FontAwesomeIcon icon={faUser} /></a></li>
                             }
@@ -88,7 +96,7 @@ const Navbar = ({authenticate, setAuthenticate}) => {
                         <nav>
                             <ul className="icon-nav-list d-flex align-items-center list-unstyled mb-0">
                                 {authenticate ? 
-                                    <li><a className="icon-nav-item" onClick={() => {setAuthenticate(false); navigate('/')}} aria-label="로그아웃"><FontAwesomeIcon icon={faDoorClosed} /></a></li>
+                                    <li><a className="icon-nav-item" onClick={logoutUser} aria-label="로그아웃"><FontAwesomeIcon icon={faDoorClosed} /></a></li>
                                     : 
                                     <li><a className="icon-nav-item" onClick={() => navigate('/login')} aria-label="로그인"><FontAwesomeIcon icon={faUser} /></a></li>
                                 }

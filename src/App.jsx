@@ -7,6 +7,7 @@ import ProductDetail from './page/ProductDetail'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import PrivateRoute from './route/PrivateRoute'
+import { ToastContainer, Toast } from 'react-bootstrap'
 
 //1. 전체 상품 페이지, 로그인, 상품상세
 //2. 전체 상품 : 전체 상품을 볼 수 있다
@@ -19,15 +20,24 @@ import PrivateRoute from './route/PrivateRoute'
 
 function App() {
   const [authenticate, setAuthenticate] = useState(false)   //true = 로그인, false = 로그아웃
+  const [toastMessage, setToastMessage] = useState('')
   return (
     <div>
-      <Navbar authenticate={authenticate} setAuthenticate={setAuthenticate} />
+      <Navbar authenticate={authenticate} setAuthenticate={setAuthenticate} setToastMessage={setToastMessage} />
       <Routes>
         <Route path="/" element={<ProductAll />} />
-        <Route path="/login" element={<Login setAuthenticate={setAuthenticate} />} />
+        <Route path="/login" element={<Login setAuthenticate={setAuthenticate} setToastMessage={setToastMessage} />} />
         <Route path="/product/:id" element={<PrivateRoute authenticate={authenticate} setAuthenticate={setAuthenticate} />} />
       </Routes>
+
+      <ToastContainer className='mt-3' position='top-center' show={toastMessage !== ''} onClose={() => setToastMessage('')}>
+        <Toast show={toastMessage !== ''} onClose={() => setToastMessage('')} delay={2000} autohide>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
+    
+    
   )
 }
 

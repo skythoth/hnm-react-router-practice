@@ -4,11 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({setAuthenticate}) => {
+const Login = ({setAuthenticate, setToastMessage}) => {
     const navigate = useNavigate();
     const loginUser = (event) => {
         event.preventDefault();     //submit시 리프레시 방지
         setAuthenticate(true);
+        setToastMessage("로그인 되었습니다.");
         
         console.log("login success");
         navigate("/");
